@@ -1,0 +1,103 @@
+\documentclass{amsart}
+
+%%%%%% begin preamble %%%%%%%
+%\addtolength{\textwidth}{2.5cm} \addtolength{\hoffset}{-1.25cm}
+%\addtolength{\voffset}{-1.2cm} \addtolength{\textheight}{2.2cm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{enumerate}
+\usepackage{todonotes}
+%\usepackage[all]{xy}
+\usepackage[authoryear]{natbib}
+%\usepackage{tikz}
+%%%%%%%%%%%% Some useful shortcuts %%%%%%%%%%%%%%%%%%
+\newcommand{\Eqref}[1]{\eqref{#1}}
+\newcommand{\Figref}[1]{Fig.~\ref{#1}}
+\newcommand{\Tabref}[1]{Tab.~\ref{#1}}
+\newcommand{\Secref}[1]{Section~\ref{#1}}
+\newcommand{\Thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\Corref}[1]{Corollary~\ref{#1}}
+\newcommand{\Lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\Propref}[1]{Prop.~\ref{#1}}
+\newcommand{\Defref}[1]{Definition~\ref{#1}}
+\newcommand{\Remref}[1]{Remark~\ref{#1}}
+\newcommand{\Itemref}[1]{Item~\ref{#1}}
+
+\newcommand{\ud}{\mathrm{d}}
+\newcommand{\pd}{\partial}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Prob}{\mathbb{P}} %probability 
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Dim}{\textrm{dim}}
+\newcommand{\Ker}{\textrm{ker}}
+\newcommand{\Ran}{\textrm{Ran}}
+\newcommand{\Hilbert}{\mathcal{H}}
+\newcommand{\Linearop}{\mathcal{L}}
+\newcommand{\Sup}{\textrm{sup}}
+\newcommand{\forevery}{\forall} %Because I keep getting it wrong
+\newcommand{\e}{\epsilon}
+\newcommand{\w}{\omega}
+\newcommand{\W}{\Omega}
+\newcommand{\Det}{\textrm{det}}
+\newcommand{\Norm}[2]{\left\lVert{#1}\right\rVert_{#2}}
+\newcommand{\tr}{\textrm{tr}}
+%\newcommand{\a}{\alpha} % appears to already be defined should look this up
+\DeclareMathOperator*{\esssup}{ess~sup}
+\newcommand{\AND}{\textrm{ and }}
+\newcommand{\OR}{\textrm{ or }}
+\newcommand{\Var}{\textrm{Var}}
+
+%%%% AMS Theorem Style Definitions
+% Plain theorem styles
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{prop}{Proposition}
+
+% Definition Theorem Style: definition, condition, problem, example
+\theoremstyle{definition}
+\newtheorem{define}{Definition}
+\newtheorem{problem}{Problem}
+\newtheorem{question}{Question}
+\newtheorem{example}{Example}
+
+% Remark Theorem style: Remark, Note, Notation, Claim, Summary, Acknowledgement, Case, Conclusion
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% These lines adjust paragraph indent and spacing. See lshort pg 130 for details.
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+% load hyperref last
+%\usepackage[urlcolor=blue,colorlinks=true,linkcolor=red]{hyperref}
+%%%%%% end preamble %%%%%%%
+
+%% fix contrib problem in amsart %%
+%\makeatletter
+%\let\@maketocontribs\wraptoccontribs
+%\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Concentration of Measure Notes}
+\dedicatory{based almost entirely on S. Chatterjee's course at taught at the Courant Institute}
+%\author{Arjun Krishnan}
+%\author{Zach Hamaker}
+%\author{Francois}
+%\author{Pete Winkler}
+\contrib[Lecture 1 by]{Arjun Krishnan}
+%\contrib{Zach Hamaker}
+%\contrib{Francois}
+%\contrib{Pete Winkler}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\maketitle
+  \input{lecture_1_basic_concentration_inequalities.tex}
+
+\bibliographystyle{plainnat}
+\bibliography{Concentration-of-Measure-Notes.bib}
+
+\end{document}

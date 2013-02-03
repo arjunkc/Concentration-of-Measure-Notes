@@ -1,73 +1,87 @@
-\documentclass{amsart}
-%\addtolength{\textwidth}{2.5cm} \addtolength{\hoffset}{-1.25cm}
-%\addtolength{\voffset}{-1.2cm} \addtolength{\textheight}{2.2cm}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{amsmath,amssymb,amsfonts,amsthm}
-\usepackage{enumerate}
-%\usepackage[all]{xy}
-%\usepackage[authoryear,round,sort&compress]{natbib}
-%\usepackage{tikz}
-%%%%%%%%%%%% Some useful shortcuts %%%%%%%%%%%%%%%%%%
-\newcommand{\Eqref}[1]{\eqref{#1}}
-\newcommand{\Figref}[1]{Fig.~\ref{#1}}
-\newcommand{\Tabref}[1]{Tab.~\ref{#1}}
-\newcommand{\Secref}[1]{Section~\ref{#1}}
-\newcommand{\Thmref}[1]{Theorem~\ref{#1}}
-\newcommand{\Corref}[1]{Corollary~\ref{#1}}
-\newcommand{\Lemref}[1]{Lemma~\ref{#1}}
-\newcommand{\Propref}[1]{Prop.~\ref{#1}}
-\newcommand{\Defref}[1]{Definition~\ref{#1}}
-\newcommand{\Remref}[1]{Remark~\ref{#1}}
-
-\newcommand{\ud}{\mathrm{d}}
-\newcommand{\pd}{\partial}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\Prob}{\mathbb{P}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\Dim}{\textrm{dim}}
-\newcommand{\Ker}{\textrm{ker}}
-\newcommand{\Ran}{\textrm{Ran}}
-\newcommand{\Hilbert}{\mathcal{H}}
-\newcommand{\Linearop}{\mathcal{L}}
-\newcommand{\Sup}{\textrm{sup}}
-\newcommand{\forevery}{\forall} %Because I keep getting it wrong
-\newcommand{\e}{\epsilon}
-\newcommand{\w}{\omega}
-\newcommand{\W}{\Omega}
-\newcommand{\Det}{\textrm{det}}
-\newcommand{\Norm}[2]{\left\lVert{#1}\right\rVert_{#2}}
-\newcommand{\tr}{\textrm{tr}}
-%\newcommand{\a}{\alpha} % appears to already be defined should look this up
-\DeclareMathOperator*{\esssup}{ess~sup}
-
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}
-\theoremstyle{plain}
-\newtheorem{lemma}{Lemma}
-\theoremstyle{plain}
-\newtheorem{prop}{Proposition}
-\theoremstyle{definition}
-\newtheorem{define}{Definition}
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\newtheorem{problem}{Problem}
-\newtheorem{question}{Question}
-
-% These lines adjust paragraph indent and spacing. See lshort pg 130 for details.
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{Lecture 1: Basic Concentration Inequalities}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{document}
+\section{Lecture 1: Basic Concentration Inequalities}
+\label{sec:lecture1}
 The first lecture is based on Sourav Chatterjee's lectures at the Courant Institute in spring 2011. 
 \begin{enumerate}
   \item Motivation: the Strong Law of Large Numbers and First Passage Percolation
   \item A First Variance Bound: Efron-Stein inequality
   \item Exponential Concentration: Azuma-Hoeffding inequality and the Method of Bounded Differences
 \end{enumerate}
-\section{Motivation}
+\subsection{Motivation}
+\begin{example}[Law of Large Numbers]
+Consider i.i.d r.v's $\{X_i\}$, with finite mean $\mu$ and variance $\sigma^2$. The sample mean
+\begin{equation}
+  S_n := \frac{\sum_i X_i}{n},
+  \label{eq:sample-mean-defintion}
+\end{equation}
+has a constant mean 
+\[ E[S_n] = \mu, \]
+and variance
+\[ \Var(S_n) = \frac{\sum_i X_i}{n^2} = \frac{\sigma^2}{n}. \]
+Chebyshev's inequality tells us 
+\begin{equation}
+  \begin{split}
+    \Prob{|S_n - \mu| \geq \epsilon} & = \int 1_{A_n} d\Prob \leq \int \frac{|S_n - \mu|^2}{\epsilon^2}  \\
+    \leq \frac{\sigma^2}{n \epsilon^2},
+  \end{split}
+    \label{eq:chebyshev-inequality}
+\end{equation}
+where $\Prob$ is the product measure on the $\{ X_1,\ldots,X_n \}$ and $A_n = \{ |S_n - \mu| \geq \epsilon \}$. This gives us convergence in measure of $S_n \to \mu$\footnote{If we had a fourth moment bound on $X_i$, one would use the Borel-Cantelli lemma and a Chebyshev inequality to deduce almost sure convergence. All we need to show is that $\Prob(A_n)$ is bounded by a summable series in $n$.}.
+\label{ex:law-of-large-numbers}
+\end{example} 
 
-\end{document}
+\begin{example}
+Consider first-percolation on the lattice. Suppose we have i.i.d copies of a non-negative edge-weight $\tau$ attached to the edges of the square-lattice $\Z^d$. A path connecting the two points $x , y \in \Z^d$ is a finite ordered set of edges,
+\[ \gamma_{x,y} = \{e_1,\ldots,e_n\}.\]
+The weight or total time of the path is  
+\[ T(\gamma_{x,y}) = \sum_{i} \tau_{e_i}, \]
+and with slight abuse of notation, the first-passage time (FPT) is defined to be
+\begin{equation}
+  T(x,y) := \inf_{\gamma_{x,y}} T(\gamma_{x,y}).
+  \label{eq:definition-of-first-passage-time}
+\end{equation}
+
+Define, 
+\[ T_n(x) = \frac{T(0,[nx])}{n}, \]
+where $[nx]$ is the closest integer to $nx$, and let
+\begin{equation}
+  \mu(x) := \lim_{n \to \infty} \frac{T_n(x)}.
+  \label{eq:time-constant}
+\end{equation}
+be the time constant.  We don't know if the limit in~\Eqref{eq:time-constant} exists. We won't show that this limit exists almost surely (this is the subject of Kingman's subadditive ergodic theorem), but we will again attempt to show convergence in measure. This involves showing first that the $E[T_n(x)]$ exists for each $x$, and this is called the subadditive lemma, which we will show below. I believe this was first shown in~\citet{hammersley_first-passage_1965}, but I ought to check. The first passage times form a subadditive sequence in that 
+\begin{equation}
+  T(0,n+m) \leq T(0,n) + T(n,n+m)
+  \label{eq:subadditivity-of-FPT}
+\end{equation}
+Let
+\[ a_n = E[T(0,ne_1)], \]
+and take an expectation of. Using the fact that $E[T(0,me_1] = E[T(n,(n+m)e_1]$ due to translation invariance, we get that $\{a_n\}$ is a subadditive sequence of real numbers of positive real numbers. We will prove that $\lim_{n \to \infty} a_n/n$ exists.
+
+I like to write proofs by making a set of observations, and then making a deduction based on these observation. In fact, I usually state the observations and summarize them in the form of a theorem, much like Ahlfors does in his classic book on Complex Analysis. 
+
+Subadditivity gives us that
+\[ a_{n k} \leq n a_k, \]
+or more generally, that
+\[ a_{nk + r} \leq n a_k + a_r. \]
+So if we fix $k$, any $m$ can be written in the form $nk+ r$, and we have that
+\[ \frac{a_m}{m} \leq \frac{n}{nk+r} a_k + \frac{a_r}{m}. \]
+This tells us that the sequence $a_m/m$ is almost decreasing; i.e., that 
+\[ a_m/m \leq a_k/k + O(1/m) \]
+Take a limit over $m$ to get that
+\[ \limsup_m \frac{a_m}{m} \leq \frac{a_k}{k}, \]
+and then again an $\inf$ over $k$ to get that
+\[ \inf \frac{a_k}{k} \leq \liminf \frac{a_k}{k}. \]
+This gives us the theorem
+
+\begin{lemma}[Subadditive Lemma]
+  Let $\{a_n\}$ be a subadditive sequence of real positive numbers. Then,
+  \[ \lim \frac{a_n}{n} = \inf_n \frac{a_n}{n}. \]
+  \label{lem:subadditive-lemma}
+\end{lemma}
+
+For us, it's important that $a_m$ is positive, or at least, that it's bounded below. If not, even though the limit may exist, it might be $-\infty$. Consider something bad like $a_m = -m^2$. We have that
+\[ -(m+n)^2 = -m^2 - n^2 - 2 m n \leq -m^2 - n^2, \]
+which gives us subadditivity. But clearly, $a_m/m \to -\infty$.  
+
+All we need to do now is 
+
+\end{example}
